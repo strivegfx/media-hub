@@ -1,0 +1,1274 @@
+@import "ht5bp";
+@import "normalize";
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,700);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:900);
+
+*, *:after, *:before {
+	box-sizing: border-box;
+}
+
+.clearFix:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+// color values
+$gray: #333333; // generic
+$grayD: darken($gray, 10%); // dark
+$grayL: lighten($gray, 35%); // light
+$grayEl: lighten($gray, 70%); // extra light
+
+$stuffRed: #ff1627;
+$stuffRedD: darken($stuffRed, 30%); // dark
+
+$stuffYellow: #ffc332;
+$stuffYellowD: darken($stuffYellow, 30%); // dark
+
+$stuffGreen: #10a370;
+$stuffGreenD: darken($stuffGreen, 30%); // dark
+
+$stuffBlue: #00adec;
+$stuffBlueL: lighten($stuffBlue, 40%); // dark
+$stuffBlueD: darken($stuffBlue, 25%); // dark
+
+$stuffPurple: #bf3f8a;
+$stuffPurpleD: darken($stuffPurple, 25%); // dark
+
+$essentialMumsPink: #E02876;
+
+$fairfaxBlue: #0078c6;
+
+$shadowRegular: rgba(black, 0.25);
+$shadowLight: rgba(black, 0.10);
+
+// generic values
+$ani: 0.25s;
+$padB: 5em;
+$padS: 2em;
+
+@mixin breakpoint($point){
+
+	@if $point == MICRO{
+		@media only screen and (min-width: 23em){ @content; } // 370px
+	}
+
+	@else if  $point == TINY{
+		@media only screen and (min-width: 32em){ @content; } // 480px
+	}
+
+	@else if $point == SMALL{
+		@media only screen and (min-width: 37em){ @content; } // 592px
+	}
+
+	@else if $point == MEDIUM{
+		@media only screen and (min-width: 46em){ @content; } // 736px
+	}
+
+	@else if $point == FULL{
+		@media only screen and (min-width: 58em){ @content; } // 928px
+	}
+
+	@else if $point == BIG{
+		@media only screen and (min-width: 69em){ @content; } // 1104px
+	}
+
+	@else if $point == LARGE{
+		@media only screen and (min-width: 80em){ @content; } // 1280px (more than 1200px so that there is a slight amount of padding when the .center width becomes static at 1200px)
+	}
+
+	@else if $point == HUGE{
+		@media only screen and (min-width: 87em){ @content; } // 1392px
+	}
+}
+
+@mixin vendorize($property, $value) {
+	-webkit-#{$property}: $value;
+	-moz-#{$property}: $value;
+	-ms-#{$property}: $value;
+	-o-#{$property}: $value;
+	#{$property}: $value;
+}
+
+@mixin pseudo{
+	content: "";
+	display: block;
+	position: absolute;
+}
+
+@mixin keyframes($aniName){
+
+    @-webkit-keyframes $aniName{
+        @content;
+    }
+    @-moz-keyframes $aniName{
+        @content;
+    }
+    @-o-keyframes $aniName{
+        @content;
+    }
+    @keyframes $aniName{
+        @content;
+    }
+}
+
+@mixin svgIcon{
+	$width: $padB / 2;
+	// background-color: gray;
+	left: 0;
+	position: absolute;
+	top: -0.5em;
+	width: $width;
+
+	@include breakpoint(MICRO){
+		$width: $padB / 1.7;
+		height: $width;
+		width: $width;
+	}
+}
+
+@mixin description{
+	padding-left: 0; // * 1.6 = bring up the em scaling with the h2
+
+	// @include breakpoint(TINY){ padding-left: ($padB / 2) * 1.6; }
+	@include breakpoint(MEDIUM){ padding-left: ($padB / 2) * 1.6; }
+	@include breakpoint(FULL){ padding-left: 0; }
+	@include breakpoint(BIG){ padding-left: ($padB / 2) * 1.6; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**{
+	outline: 1px solid red !important;
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$navOffS: 14em;
+$navOffM: 16em;
+$navOffL: 18em;
+
+body{
+	background-color: $grayD;
+	overflow-x: hidden;
+	width: 100%;
+
+	&[data-nav="active"]{
+		position: fixed; // stop mobile devices from panning siteWrapper on the x-axis while the nav is open
+
+		#siteWrapper{
+
+			/* left: $navOffS;
+			@include breakpoint(MICRO){ left: $navOffM; }
+			@include breakpoint(MEDIUM){ left: $navOffL; } */
+
+			transform: translateX($navOffS);
+			@include breakpoint(MICRO){ transform: translateX($navOffM); }
+			@include breakpoint(MEDIUM){ transform: translateX($navOffL); }
+		}
+
+		#hamburger{
+			// @include breakpoint(LARGE){ margin: 0 0 0 1.6em; }
+		}
+	}
+}
+
+#siteWrapper{
+	background-color: white;
+	bottom: 100%;
+	left: 0;
+	min-height: 100%;
+	min-width: 100%;
+	position: relative;
+	top: 0;
+	transition: transform $ani ease-out;
+	// transition: left $ani ease-out;
+	z-index: 0;
+}
+
+#navigation{
+	bottom: 0;
+	height: 100%;
+	overflow-x: hidden;
+	position: fixed;
+	right: 100%;
+	top: 0;
+	width: $navOffS;
+	z-index: 100;
+
+	@include breakpoint(MICRO){ width: $navOffM; }
+
+	@include breakpoint(MEDIUM){ width: $navOffL; }
+
+	ul{
+		height: 100%;
+		list-style-type: none;
+		margin: 0;
+		padding: $padS $padS $padS 1.5em;
+		position: relative;
+		width: 100%;
+
+		&:before{
+			@include pseudo;
+			background-color: black;
+			border-radius: 50%;
+			box-shadow: 0 0 50px 10px black;
+			height: 100%;
+			left: 100%;
+			top: 0;
+			transform: translateY(-50%);
+			width: 50px;
+		}
+
+		li{
+			margin-bottom: 3em;
+
+			a{
+				display: block;
+				color: inherit;
+				position: relative;
+				text-decoration: none;
+
+				.svgIcon{
+					@include svgIcon;
+				}
+
+				h2{ margin-left: 2.5em; }
+
+				h2:hover .underline{ border-bottom: 1px solid; }
+			}
+		}
+	}
+
+	.home{ color: white; }
+
+	.mediaKit{ color: $stuffRed; }
+
+	.rateCard{ color: $stuffYellow; }
+
+	.techSpecs{ color: $stuffGreen; }
+
+	.termsConditions{ color: $stuffBlue; }
+
+	.bookingDeadlines{ color: $stuffPurple; }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+	              _       
+	 _ __   __ _ (_) _ _  
+	| '  \ / _` || || ' \ 
+	|_|_|_|\__,_||_||_||_|
+
+*/
+
+html, body{
+	// height: 100%; // is this messing up the vertical scrolling on some devices?
+	// width: 100%;
+}
+
+body{
+	font: {
+		family: "Roboto", sans-serif;
+		weight: 300;
+	}
+}
+
+h1, .h1{
+	font: {
+		color: gray;
+		family: "Source Sans Pro", sans-serif;
+		size: 1.3em;
+		weight: 900;
+	}
+	margin: 0;
+	text-transform: uppercase;
+
+	@include breakpoint(MICRO){ font-size: 1.45em; }
+	@include breakpoint(MEDIUM){ font-size: 1.6em; }
+	@include breakpoint(FULL){ font-size: 2em; }
+}
+
+h2, .h2{
+	$width: $padB / 4;
+	font: {
+		family: "Source Sans Pro", sans-serif;
+		size: 1.3em;
+		weight: 900;
+	}
+	margin: 0 0 0.5em 0;
+	padding: 0;
+	position: relative;
+	text-transform: uppercase;
+
+	@include breakpoint(MICRO){ font-size: 1.45em; }
+	@include breakpoint(MEDIUM){ font-size: 1.6em; }
+}
+
+h3, .h3{
+	font: {
+		size: 1.2em;
+		// style: normal; // fixes the italx from the <address>
+		weight: 100;
+	}
+	margin: 0;
+}
+
+h4, .h4{
+	font: {
+		size: 1em;
+		weight: 100;
+	}
+	margin: 0;
+}
+
+h5, .h5{
+	font: {
+		size: 0.9em;
+		weight: 100;
+	}
+	margin: 0;
+}
+
+.center{
+	list-style-type: none;
+	margin: 0 auto;
+	padding: 0 5%;
+	position: relative;
+	width: 100%;
+
+	@include breakpoint(LARGE){
+		padding: 0;
+		width: 75em; // 1200px
+	}
+}
+
+.oneWord{
+	white-space: nowrap;
+}
+
+.more{
+	transition: background-color $ani ease-out,
+				color $ani ease-out;
+	border: 1px solid white;
+	border-radius: 2em;
+	color: white;
+	padding: 0.5em 1.5em;
+	text: {
+		decoration: none;
+		transform: lowercase;
+	}
+
+	&:hover{
+		background-color: white;
+		// color: xxxx;  // set inside each strip
+	}
+}
+
+.divider{
+	$height: 0.5em;
+	background-color: black;
+	height: $height;
+
+	&.marginTop{ margin-top: $height; }
+
+	&.marginBottom{ margin-bottom: $height; }
+
+	.segment{
+		float: left;
+		height: $height;
+		width: 20%;
+	}
+
+	.red{ background-color: $stuffRed; }
+	.yellow{ background-color: $stuffYellow; }
+	.green{ background-color: $stuffGreen; }
+	.blue{ background-color: $stuffBlue; }
+	.purple{ background-color: $stuffPurple; }
+}
+
+.title{
+	position: relative;
+
+	h2{ padding-left: $padB / 2; }
+
+	.svgIcon{ @include svgIcon; }
+}
+
+.svgIcon{ height: auto !important; }
+
+.links{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	a{
+		color: inherit;
+		float: left;
+		padding-bottom: $padB / 2;
+		text: {
+			align: center;
+			decoration: none;
+		}
+		width: 7.5em;
+
+		.svgIcon{
+			$width: $padB / 2;
+			// background-color: gray;
+			display: inline-block;
+			margin-bottom: 0.5em;
+			width: $width;
+
+			@include breakpoint(MICRO){
+				$width: $padB / 1.5;
+				width: $width;
+			}
+		}
+
+		h5.active{ display: none; }
+
+		&:hover h5{
+
+			.underline{ border-bottom: 1px solid; }
+
+			&.active{ display: block; }
+			&.dormant{ display: none; }
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body[data-nav="active"] #hamburger{
+
+	&:hover{ .close.active{ opacity: 1; } }
+
+	.close.dormant{ opacity: 1; }
+	.open{ opacity: 0; }
+}
+
+#hamburger{
+
+	&:hover{ .open.active{ opacity: 1; } }
+
+	.open.dormant{ opacity: 1; }
+	.close{ opacity: 0; }
+}
+
+header{
+	position: relative;
+	z-index: 10;
+
+	#hamburger{
+		float: left;
+		font-size: 1em;
+		margin-top: 1em;
+		position: relative;
+		width: 2.5em;
+
+		@include breakpoint(MICRO){ font-size: 1.1em; }
+		@include breakpoint(MEDIUM){ font-size: 1.2em; }
+		@include breakpoint(FULL){ font-size: 1.5em; }
+
+		.svgIcon{
+			transition: opacity $ani ease-out;
+			left: 0;
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+
+			.open.active, .close.active{ z-index: 10; }
+			.open.dormant, .close.dormant{ z-index: 1; }
+		}
+	}
+
+	h1{
+		float: left;
+
+		@mixin hideHeading{
+			border-right: 0;
+			margin: 1em 0 1em 0;
+			padding-right: 1em;
+
+			.advertiseOnline{ display: none; }
+		}
+
+		@mixin showHeading{
+			border-right: 1px solid $grayEl;
+			margin: 1em 1em 1em 1em;
+
+			.advertiseOnline{ display: inline; }
+		}
+		
+		@include hideHeading;
+
+		@include breakpoint(SMALL){ @include showHeading; }
+
+		@include breakpoint(MEDIUM){ @include hideHeading; }
+
+		@include breakpoint(FULL){ @include showHeading; }
+	}
+
+	.stuffLogo{
+		$height: (32 / 16); // em
+		$width: (100 / 16); // em
+		float: left;
+		height: ($height * 0.8) + em;
+		margin-top: 1.4em;
+		width: ($width * 0.8) + em;
+
+		@include breakpoint(MICRO){
+			height: ($height * 0.9) + em;
+			margin-top: 1.5em;
+			width: ($width * 0.9) + em;
+		}
+
+		@include breakpoint(MEDIUM){
+			height: ($height * 1) + em;
+			margin-top: 1.7em;
+			width: ($width * 1) + em;
+		}
+
+		@include breakpoint(FULL){
+			height: ($height * 1.2) + em;
+			margin-top: 2em;
+			width: ($width * 1.2) + em;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+html{
+	background-color: #ffffff; // if #ffffff = SMALL slideshow UI
+
+	@include breakpoint(MEDIUM){ background-color: #000000; } // if #000000 = BIG slideshow UI
+}
+
+#slideShow{
+	padding: 0;
+	position: relative;
+
+	.stretch{
+		$dis: 6%;
+		left: 0;
+		position: relative;
+		right: 0;
+		width: 100%;
+
+		@include breakpoint(HUGE){
+			left: - $dis;
+			right: $dis;
+			width: 100% + ($dis * 2);
+		}
+	}
+
+	.slide{
+		$widthB: $padB / 1.7;
+		$widthS: 2em;
+		// background-color: rgba(gold, 0.2);
+		bottom: $padS / 2;
+		height: $widthS;
+		position: absolute;
+		right: $padS / 2;
+		width: $widthS;
+		z-index: 2;
+
+		@include breakpoint(SMALL){
+			height: $widthB;
+			width: $widthB;
+		}
+
+		@include breakpoint(SMALL){
+			bottom: $padS;
+			right: $padS;
+		}
+
+		&.left{
+			right: $widthS + 1em + ($padS / 2);
+
+			@include breakpoint(SMALL){ right: $widthB + 2em + ($padS / 2);}
+		}
+
+		img{
+			height: auto;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+
+		.dormant{ z-index: 1; }
+		.active{
+			transition: opacity $ani ease-out;
+			opacity: 0;
+			z-index: 10;
+		}
+
+		&:hover .active{ opacity: 1; }
+	}
+
+	#mediaShell{
+		// background-color: rgba(blue, 0.5);
+		bottom: 0;
+		display: none;
+		height: 100%;
+		list-style-type: none;
+		margin: 0;
+		position: absolute;
+		right: 0;
+		width: 100%;
+		z-index: 1;
+
+		@include breakpoint(MEDIUM){ display: block; }
+
+		&[data-kind="iPhone"]{
+
+			.device, .screen{
+
+				@include breakpoint(MEDIUM){ margin-right: 1em; }
+				@include breakpoint(FULL){ margin-right: 1em; }
+				@include breakpoint(BIG){ margin-right: 1em }
+				@include breakpoint(LARGE){ margin-right: 2em; }
+				@include breakpoint(HUGE){ margin-right: -2em; }
+			}
+
+			.screen{
+				$height: 347 / 16;
+				// $width: 197 / 16;
+				bottom: (98 / 16) + em; // 6em;
+				height: $height + em !important;
+				right: (123 / 16) + em; // 7.6em;
+			}
+		}
+
+		&[data-kind="iPad"]{
+
+			.device, .screen{
+
+				@include breakpoint(MEDIUM){ margin-right: 1em; }
+				@include breakpoint(FULL){ margin-right: -1em; }
+				@include breakpoint(BIG){ margin-right: 1em }
+				@include breakpoint(LARGE){ margin-right: 2em; }
+				@include breakpoint(HUGE){ margin-right: -2em; }
+			}
+
+			.screen{
+				$height: 400 / 16;
+				// $width: 300 / 16;
+				bottom: (75 / 16) + em; // 6em;
+				height: $height + em !important;
+				right: (115 / 16) + em; // 7.6em;
+			}
+		}
+
+		&[data-kind="desktop"]{ 
+
+			.device, .screen{
+
+				@include breakpoint(MEDIUM){ margin-right: 1em; }
+				@include breakpoint(FULL){ margin-right: 1em; }
+				@include breakpoint(BIG){ margin-right: 1em; }
+				@include breakpoint(LARGE){ margin-right: 2em; }
+				@include breakpoint(HUGE){ margin-right: -3em; }
+			}
+
+			.screen{
+				$height: 285 / 16;
+				// $width: 550 / 16;
+				bottom: (134 / 16) + em; // 6em;
+				height: $height + em !important;
+				right: (28 / 16) + em; // 7.6em;
+			}
+		}
+
+		.device, .screen{
+			font-size: 1em;
+			margin-right: 0;
+			position: absolute;
+
+			@include breakpoint(MEDIUM){ font-size: 0.6em; }
+			@include breakpoint(FULL){ font-size: 0.63em; }
+			@include breakpoint(BIG){ font-size: 0.76em;}
+			@include breakpoint(LARGE){ font-size: 0.8em; }
+			@include breakpoint(HUGE){ font-size: 0.9em; }
+		}
+
+		.device{
+			$height: 516 / 16;
+			// $width: 410 / 16;
+			bottom: 0;
+			height: $height + em;
+			right: 0;
+			width: auto; // $width + em;
+			z-index: 2;
+		}
+
+		.screen{
+			width: auto; // $width + em !important;
+			z-index: 1;
+		}
+	}
+
+	#dynamicBg{
+		height: auto;
+		margin-bottom: 0.5em;
+		width: 100%;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.keyPoints{
+	margin: $padB 0 0 0;
+
+	.audience{
+		color: $stuffRed;
+		padding: 0;
+
+		@include breakpoint(TINY){ padding: 0 ($padS / 2) 0 0; }
+		@include breakpoint(FULL){ padding: 0 ($padB / 2) 0 0; }
+
+		.description{ color: $stuffRedD; }
+	}
+
+	.reachEngagement{
+		color: $stuffYellow;
+		padding: 0;
+
+		@include breakpoint(TINY){ padding: 0 0 0 ($padS / 2); }
+		@include breakpoint(FULL){ padding: 0 ($padB / 4) 0 ($padB / 4); }
+
+		.description{ color: $stuffYellowD; }
+	}
+
+	.findingNiche{
+		color: $stuffGreen;
+		padding: 0;
+
+		@include breakpoint(TINY){ padding: 0 ($padS / 2) 0 0; }
+		@include breakpoint(FULL){ padding: 0 0 0 ($padB / 2); }
+
+		.description{ color: $stuffGreenD; }
+	}
+
+	.hereToHelp{
+		color: $stuffPurple;
+		padding: 0;
+
+		@include breakpoint(TINY){ padding: 0 0 0 ($padS / 2); }
+		@include breakpoint(FULL){ padding: 0 ($padB / 2) 0 0; }
+
+		.description{ color: $stuffPurpleD; }
+	}
+
+	.enquiries{
+		color: $stuffBlue;
+		padding: 0;
+
+		@include breakpoint(TINY){ padding: 0 ($padS / 2) 0 0; }
+		@include breakpoint(FULL){ padding: 0 ($padB / 4) 0 ($padB / 4); }
+
+		.description{ color: $stuffBlueD; }
+	}
+
+	// --- --- ---
+
+	.break{
+		float: left;
+		height: 0;
+		width: 100%;
+		&.col2{ display: none; }
+		&.col3{ display: none; }
+
+		@include breakpoint(TINY){
+			&.col2{ display: block; }
+			&.col3{ display: none; }
+		}
+
+		@include breakpoint(FULL){
+			&.col2{ display: none; }
+			&.col3{ display: block; }
+		}
+	}
+
+	article{
+		float: left;
+		margin: 0 0 $padS 0;
+		width: 100%;
+
+		@include breakpoint(TINY){
+			margin: 0 0 $padS 0;
+			width: 50%;
+		}
+
+		@include breakpoint(MEDIUM){
+			margin: 0 0 $padB 0;
+		}
+
+		@include breakpoint(FULL){
+			width: 33%;
+		}
+
+		.description, .links{ @include description; }
+
+		.links{
+			position: relative;
+
+			a{ width: 7em; }
+		}
+
+		.phone{
+			left: -2em;
+			position: absolute;
+			top: 0;
+
+			@include breakpoint(MEDIUM){ left: 2em; }
+			@include breakpoint(FULL){ left: -2em; }
+			@include breakpoint(BIG){ left: 2em; }
+		}
+
+		.email{ margin-left: 5em; }
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.strip{
+
+	&.mediaKit{
+		$color: $stuffRed;
+		background-color: $color;
+
+		.more:hover{ color: $color; }
+	}
+	&.rateCard{
+		$color: $stuffYellow;
+		background-color: $stuffYellow;
+
+		.more:hover{ color: $color; }
+	}
+	&.techSpecs{
+		$color: $stuffGreen;
+		background-color: $stuffGreen;
+
+		.more:hover{ color: $color; }
+	}
+	&.termsConditions{
+		$color: $stuffBlue;
+		background-color: $stuffBlue;
+
+		.more:hover{ color: $color; }
+	}
+	&.bookingDeadlines{
+		$color: $stuffPurple;
+		background-color: $stuffPurple;
+
+		.more:hover{ color: $color; }
+	}
+}
+
+.strip{
+	color: white;
+	// overflow: hidden;
+	padding: $padB 0;
+	position: relative;
+
+	.center{ position: static; } // remove the 'relative' positioning so that the 100% height of the media shell references the strip height instead
+
+	&.left{
+
+		.description{
+			left: 0;
+
+			@include breakpoint(MEDIUM){ left: 50%; }
+		}
+
+		.mediaShell{
+			left: 0;
+
+			.device, .screen{
+				right: $padS;
+
+				@include breakpoint(FULL){ right: $padB; }
+			}
+		}
+	}
+
+	&.right{
+
+		@include breakpoint(MEDIUM){ text-align: right; }
+
+		.description{ left: 0; }
+		.mediaShell{
+			left: 50%;
+
+			.device, .screen{
+				left: $padS;
+
+				@include breakpoint(FULL){ left: $padB; }
+			}
+		}
+	}
+
+	.description{
+		position: relative;
+		width: 100%;
+
+		@include breakpoint(MEDIUM){
+			width: 50%;
+
+			.title{
+
+				h2{ padding-left: 0; }
+				.svgIcon{ display: none; }
+			}
+		}
+
+		p{ margin: 0 0 2em 0; }
+	}
+
+	.mediaShell{
+		// background-color: rgba(gray, 0.5);
+		bottom: 0;
+		display: none;
+		height: 110%;
+		position: absolute;
+		width: 50%;
+
+		@include breakpoint(MEDIUM){ display: block; }
+
+		.device, .screen{
+			bottom: 0;
+			height: 100%;
+			position: absolute;
+			width: auto;
+		}
+
+		.device{
+			z-index: 1;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer{
+	
+	.overflow{ overflow: hidden; }
+
+	.contact, .additionalInformation{
+		// background-color: red;
+		color: white;
+		float: left;
+		padding: $padB 0 ($padB / 2) 0;
+		position: relative;
+		width: 100%;
+
+		&:before{
+			@include pseudo;
+			height: 100%;
+			left: -250%;
+			top: 0;
+			width: 1000%;
+			z-index: -1;
+		}
+
+		@include breakpoint(MEDIUM){
+			width: 50%;
+
+			&:before{
+				height: 1000%;
+				width: 1000%;
+			}
+		}
+
+		a{ color: white; }
+	}
+
+	.contact{
+		font-style: normal; // fixes the italx from the <address>
+
+		@include breakpoint(MEDIUM){ padding: $padB $padS ($padB / 2) 0; }
+
+		@include breakpoint(BIG){ width: 45%; }
+
+		&:before{
+			background-color: $gray;
+			right: 0;
+		}
+
+		.details{
+			padding-left: 0;
+
+			@include breakpoint(MICRO){ padding-left: $padB / 1.25; }
+			
+			.jobTitle{ font-size: 0.7em; }
+		}
+
+		.links{ padding-top: $padB / 2; }
+	}
+
+	.additionalInformation{	
+
+		@include breakpoint(MEDIUM){
+			padding: $padB 0 ($padB / 2) $padS;
+			
+			&:before{ left: 0; }
+		}
+
+		@include breakpoint(BIG){
+			padding: $padB 0 ($padB / 2) $padB;
+			width: 55%;
+		}
+
+		&:before{ background-color: $grayD; }
+
+		h2{
+			padding-bottom: 1em;
+			
+			@include breakpoint(MEDIUM){
+				height: 4.8em; // bringing in line with the contact icons
+				padding-bottom: 0; // bringing in line with the contact icons
+			}
+		}
+	}
+
+	.stuff, .fairfax, .essentialMums{
+		margin-top: $padB;
+
+		.brand{
+			// background-color: gray;
+			height: 5em;
+			margin-left: 2em;
+			width: 100%;
+
+			img{
+				height: 100%;
+				width: auto;
+			}
+		}
+
+		.links{
+			border-top: {
+				style: solid;
+				width: 1px;
+			};
+			margin-top: $padB / 3;
+			padding-top: $padB / 3;
+		}
+	}
+
+	.stuff{
+		color: $stuffRed;
+		width: 100%;
+
+		a{ color: $stuffRed; }
+
+		.svgIcon.brand{
+			$width: (100 / 16); // em
+			width: ($width * 1) + em;
+
+			@include breakpoint(MICRO){ width: ($width * 1.5) + em; }
+		}
+	}
+
+	.fairfax, .essentialMums{
+		float: left;
+		width: 100%;
+
+		@include breakpoint(MEDIUM){ width: 45%; }
+	}
+
+	.fairfax{
+		color: $fairfaxBlue;
+
+		a{ color: $fairfaxBlue; }
+
+		.svgIcon.brand{
+			$width: 100 / 16; // em
+			width: ($width * 0.9) + em;
+
+			@include breakpoint(MICRO){ width: ($width * 1.3) + em; }
+		}
+	}
+
+	.essentialMums{
+		color: $essentialMumsPink;
+
+		@include breakpoint(MEDIUM){
+			margin-left: 10%;
+			width: 45%;
+		}
+
+		a{ color: $essentialMumsPink; }
+
+		.svgIcon.brand{
+			$width: 100 / 16; // em
+			margin-top: 0;
+			width: ($width * 0.9) + em;
+
+			@include breakpoint(MICRO){
+				margin-top: 1em; // align vertically with fairfax logo
+				width: ($width * 1.3) + em;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.no-csstransforms{
+
+	// hide side navigation...
+	#navigation{ display: none; }
+	#hamburger{ display: none; }
+	h1{
+		display: none;
+		margin-left: 0;
+	}
+}
+
