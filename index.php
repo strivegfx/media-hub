@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" data-mediaQuery="small"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -96,7 +96,7 @@
             <div id="slideShow" class="center">
                 <!-- insert slideshow version based on screen size -->
 
-                <div class="bigVersion stretch">
+                <div class="stretch">
                     <a class="slide left" href="#">
                         <img class="svgIcon dormant"
                              data-noSvg="img/png-icons/slide-left-dormant.png"
@@ -115,13 +115,9 @@
                     </a>
                     <ul id="mediaShell">
                         <img class="device" src="">
-                        <!-- <img class="screen" src=""> -->
-                        <video autoplay="autoplay" loop="loop" class="screen">
-                            <source class="mp4" src="" type="video/mp4">
-                            <source class="webm" src="" type="video/webm">
-                            Your browser does not support HTML5 video.
-                        </video>
-                        <!-- <div class="backing"></div> -->
+                        <div class="screen">
+                            <img class="content" src="">
+                        </div>
                     </ul>
                     <img id="dynamicBg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzQ0IiBoZWlnaHQ9IjM3NiIgdmlld0JveD0iMCAwIDEzNDQgMzc2Ij48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDEzNDR2Mzc2aC0xMzQ0eiIvPjwvc3ZnPg==">
                 </div>
@@ -219,7 +215,7 @@
                 <div class="red segment"></div><div class="yellow segment"></div><div class="green segment"></div><div class="blue segment"></div><div class="purple segment"></div>
             </div>
 
-            <section class="mediaKit strip right">
+            <section class="strip right" data-type="mediaKit">
                 <div class="center">
                     <div class="description" data-scroll-reveal="enter left over 0.5s">
                         <div class="title">
@@ -232,13 +228,13 @@
                         <a class="more" href="http://static.stuff.co.nz/stuff/advertise-online/Media_Kit_March2014.pdf">More</a>
                     </div>
                     <div class="mediaShell"  data-scroll-reveal="enter right over 0.5s">
-                        <img class="device" src="img/media-shell-iphone.png">
-                        <img class="screen" src="img/iphone-strip-1.png">
+                        <img class="device" src="" data-big="img/media-shell-iphone.png">
+                        <img class="screen" src="" data-big="img/iphone-strip-1.png">
                     </div>
                 </div>
             </section> <!-- end of mediaKit -->
 
-            <section class="rateCard strip left">
+            <section class="strip left" data-type="rateCard">
                 <div class="center clearFix">
                     <div class="description" data-scroll-reveal="enter right over 0.5s">
                         <div class="title">
@@ -251,13 +247,13 @@
                         <a class="more" href="http://www.stuff.co.nz/about-stuff/ratecard">More</a>
                     </div>
                     <div class="mediaShell" data-scroll-reveal="enter left over 0.5s">
-                        <img class="device" src="img/media-shell-ipad.png">
-                        <img class="screen" src="img/ipad-strip-2.png">
+                        <img class="device" src="" data-big="img/media-shell-ipad.png">
+                        <img class="screen" src="" data-big="img/ipad-strip-2.png">
                     </div>
                 </div>
             </section> <!-- end of rateCard -->
 
-            <section class="techSpecs strip right">
+            <section class="strip right" data-type="techSpecs">
                 <div class="center clearFix">
                     <div class="description" data-scroll-reveal="enter left over 0.5s">
                         <div class="title">
@@ -270,13 +266,13 @@
                         <a class="more" href="http://www.stuff.co.nz/about-stuff/technical-specifications">More</a>
                     </div>
                     <div class="mediaShell" data-scroll-reveal="enter right over 0.5s">
-                        <img class="device" src="img/media-shell-imac.png">
-                        <img class="screen" src="img/imac-strip-1.png">
+                        <img class="device" src="" data-big="img/media-shell-imac.png">
+                        <img class="screen" src="" data-big="img/imac-strip-1.png">
                     </div>
                 </div>
             </section> <!-- end of techSpecs -->
 
-            <section class="termsConditions strip left">
+            <section class="strip left" data-type="termsConditions">
                 <div class="center clearFix">
                     <div class="description" data-scroll-reveal="enter right over 0.5s">
                         <div class="title">
@@ -289,13 +285,13 @@
                         <a class="more" href="http://static.stuff.co.nz/files/termsandconditions.doc">More</a>
                     </div>
                     <div class="mediaShell" data-scroll-reveal="enter left over 0.5s">
-                        <img class="device" src="img/media-shell-iphone.png">
-                        <img class="screen" src="img/iphone-strip-2.png">
+                        <img class="device" src="" data-big="img/media-shell-iphone.png">
+                        <img class="screen" src="" data-big="img/iphone-strip-2.png">
                     </div>
                 </div>
             </section> <!-- end of termsConditions -->
 
-            <section class="bookingDeadlines strip right">
+            <section class="strip right" data-type="bookingDeadlines">
                 <div class="center clearFix">
                     <div class="description" data-scroll-reveal="enter left over 0.5s">
                         <div class="title">
@@ -308,8 +304,8 @@
                         <a class="more" href="http://file.stuff.co.nz/stuff/advertise-online/Booking_and_Material_Deadlines.pdf">More</a>
                     </div>
                     <div class="mediaShell" data-scroll-reveal="enter right over 0.5s">
-                        <img class="device" src="img/media-shell-ipad.png">
-                        <img class="screen" src="img/ipad-strip-1.png">
+                        <img class="device" src="" data-big="img/media-shell-ipad.png">
+                        <img class="screen" src="" data-big="img/ipad-strip-1.png">
                     </div>
                 </div>
             </section> <!-- end of bookingDeadlines -->
@@ -498,7 +494,7 @@
 
                     <div class="essentialMums">
                         <img class="svgIcon brand"
-                             data-noSvg="img/png-icons/essential-mums.png"
+                             data-noSvg="img/png-icons/essential-mums-pink.png"
                              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iNDMiIHZpZXdCb3g9IjAgMCAxMDAgNDMiPjxnIGZpbGw9IiNEQjA5NjIiPjxwYXRoIGQ9Ik00NC42IDIxYy0uOSAwLTEuNy43LTEuNyAxLjZ2MTIuNGMwIDIuNi0yLjEgNC44LTQuNyA0LjhzLTQuNy0yLjEtNC43LTQuOHYtMTIuNWMwLS45LS43LTEuNi0xLjYtMS42LS45IDAtMS42LjctMS42IDEuNnYxMi41YzAgNC4zIDMuNiA3LjkgOCA3LjlzOC0zLjYgOC03Ljl2LTEyLjVjMC0uOC0uOC0xLjUtMS43LTEuNXpNOTEgMjIuN2MuMi0uMy4zLS42LjMtLjkgMC0uOS0uNy0xLjYtMS42LTEuNi0uNSAwLS45LjEtMS4zLjZsLTExLjMgMTYuMXYtOC4zYzAtNC4zLTMuNS03LjktNy45LTcuOS0yLjYgMC00LjkgMS4zLTYuMyAzLjItMS40LTEuOS0zLjctMy4yLTYuMy0zLjItNC40IDAtNy45IDMuNi03LjkgNy45djEyLjVjMCAuOS43IDEuNiAxLjYgMS42LjkgMCAxLjYtLjcgMS42LTEuNnYtMTIuNmMwLTIuNiAyLjItNC44IDQuNy00LjhzNC43IDIuMSA0LjggNC42bC4xLjJ2MTIuNWMwIC45LjYgMS42IDEuNSAxLjZoLjFjLjkgMCAxLjYtLjcgMS42LTEuNnYtMTIuNWwtLjEtLjJjLjEtMi42IDIuMi00LjYgNC43LTQuNiAyLjYgMCA0LjcgMi4xIDQuNyA0Ljh2MTIuNWMwIC43LjUgMS4zIDEuMSAxLjUuMy4yLjYuMy45LjMuNCAwIDEuMS0uMyAxLjMtLjZsOS0xM2MuMS0uMi4yIDAgLjIgMCAxLjYgNC4xIDUuMSA1LjQgNS4xIDguMSAwIDEuMy0xLjEgMi41LTIuNSAyLjUtMS44IDAtMS42LTEuNS0zLjEtMS41LS45IDAtMS42LjctMS42IDEuNiAwIDEuNCAyLjMgMy4xIDQuNyAzLjEgMy4xIDAgNS42LTIuNSA1LjYtNS42IDAtNC42LTUuNi03LjYtNS42LTEwLjguMS0xLjYgMS43LTMuNSAxLjktMy45ek0yMC43IDIwLjZjLTIuNiAwLTQuOSAxLjMtNi40IDMuMi0xLjQtMS45LTMuOC0zLjItNi40LTMuMi00LjQgMC04IDMuNi04IDcuOXYxMi41YzAgLjkuNyAxLjYgMS42IDEuNnMxLjYtLjcgMS42LTEuNnYtMTIuNWMwLTIuNiAyLjItNC44IDQuOC00LjggMi41IDAgNC43IDIuMSA0LjggNC42djEyLjdjMCAuOS43IDEuNiAxLjYgMS42LjkgMCAxLjYtLjcgMS42LTEuNnYtMTIuN2MuMS0yLjYgMi4yLTQuNiA0LjctNC42IDIuNiAwIDQuNyAyLjEgNC43IDQuOHYxMi41YzAgLjkuOCAxLjYgMS43IDEuNi45IDAgMS43LS43IDEuNy0xLjZ2LTEyLjVjMC00LjMtMy42LTcuOS04LTcuOXpNMzguMSAxNi45Yy4yLS4yLjMtLjUuMy0uOCAwLS42LS41LTEuMS0xLTEuMS0uMyAwLS41LjEtLjcuMi0uNy42LTEuNiAxLTIuNyAxLTEuNyAwLTMtMS4xLTMuMi0yLjcgMC0uMy4yLS4zLjItLjNoNi45Yy43IDAgMS4yLS41IDEuMi0xLjIgMC0yLjYtMS44LTUuNi01LjQtNS42LTMuMyAwLTUuNSAyLjctNS41IDUuOSAwIDMuNSAyLjUgNS45IDUuOCA1LjkgMS44LjIgMy4xLS4zIDQuMS0xLjN6bS03LjMtNS41Yy4yLTEuNSAxLjMtMi44IDIuOS0yLjggMS43IDAgMi43IDEuMyAyLjkgM2gtNS42Yy0uMyAwLS4yLS4yLS4yLS4yek01MC4xIDE3di02LjFjMC0yLjYtMS41LTQuMy00LTQuMy0xLjggMC0yLjguOS0zLjMgMS44LS4xLjItLjEgMC0uMSAwdi0uNGMwLS43LS43LTEuMy0xLjUtMS4zLS43IDAtMS40LjYtMS40IDEuM3Y5YzAgLjcuNyAxLjMgMS40IDEuM3MxLjUtLjYgMS41LTEuM3YtNS4yYzAtMS44IDEuMS0yLjggMi42LTIuOHMyLjUgMSAyLjUgMi44djUuMmMwIC43LjUgMS4zIDEuMiAxLjNzMS4xLS42IDEuMS0xLjN6TTUxLjUgOS4yaC4zdjUuOGMwIDIuNSAxLjQgMy4zIDMuMyAzLjMuNyAwIDEuMi0uMSAxLjgtLjMuNC0uMi43LS41LjctMSAwLS42LS41LTEuMS0xLjEtMS4xIDAgLjEtLjIuMS0uNS4xLS45IDAtMS4zLS40LTEuMy0xLjR2LTUuM2MwLS4zLjEtLjEuMS0uMWgxLjhjLjYgMCAxLjEtLjYgMS4xLTEuMnMtLjUtMS4yLTEuMS0xLjJoLTEuOGMtLjMgMC0uMS0uMi0uMS0uMnYtMS43YzAtLjctLjctMS4zLTEuNC0xLjNzLTEuNS42LTEuNSAxLjN2MS43YzAgLjMtLjEuMi0uMS4yaC0uMmMtLjYgMC0xLjEuNi0xLjEgMS4ycy40IDEuMiAxLjEgMS4yek02MC4xIDYuN2MtLjcgMC0xLjMuNi0xLjMgMS4zdjljMCAuNy42IDEuMyAxLjMgMS4zLjcgMCAxLjMtLjYgMS4zLTEuM3YtOWMwLS43LS42LTEuMy0xLjMtMS4zek02MC4xIDUuMmMuOCAwIDEuNi0uNSAxLjYtMS4zdi0uMWMwLS44LS43LTEuMy0xLjYtMS4zLS44IDAtMS42LjUtMS42IDEuM3YuMWMuMS44LjggMS4zIDEuNiAxLjN6TTY2LjUgMTguNGMxLjcgMCAyLjktLjcgMy41LTEuNS4yLS4yLjEgMCAuMSAwdi4yYzAgLjYuNSAxLjEgMS4yIDEuMXMxLjItLjUgMS4yLTEuMnYtNS42YzAtMS41LS4zLTIuNy0xLjEtMy41LS44LS44LTItMS4zLTMuNy0xLjMtMS41IDAtMi42LjMtMy42LjctLjQuMi0uNy42LS43IDEgMCAuNi41IDEuMSAxLjEgMS4xLjEgMCAuMyAwIC40LS4xLjctLjMgMS41LS41IDIuNS0uNSAxLjggMCAyLjguOSAyLjggMi41di4zYy0uNy0uMy0xLjgtLjUtMy0uNS0yLjggMC00LjcgMS4yLTQuNyAzLjctLjEgMi40IDEuOCAzLjYgNCAzLjZ6bS0xLjctMy42YzAtMS4yIDEtMS45IDIuNy0xLjkgMSAwIDEuOS4yIDIuNi41di44YzAgMS40LTEuMyAyLjQtMy4xIDIuNC0xLjItLjEtMi4yLS43LTIuMi0xLjh6TTc1LjQgMTguM2MuNyAwIDEuNS0uNiAxLjUtMS4zdi0xMy40YzAtLjctLjctMS4zLTEuNS0xLjMtLjcgMC0xLjQuNi0xLjQgMS4zdjEzLjRjMCAuNy43IDEuMyAxLjQgMS4zeiIvPjxjaXJjbGUgY3g9Ijk3LjgiIGN5PSI0MC41IiByPSIyLjIiLz48cGF0aCBkPSJNNy4xIDE4LjRjMS41IDAgMi45LS41IDMuOS0xLjQuMS0uMS4yLS4yLjItLjNsLjItLjIgMy43LTUuMWMuNS45IDEgMS42IDEuNSAyLjEuNi42IDEgMS4xIDEgMS43IDAgLjUtLjUgMS0xIDEtLjQgMC0uNS0uMS0uNy0uMy0uMi0uMi0uNC0uNS0uOS0uNS0uNiAwLTEuMS41LTEuMSAxLjEgMCAuNS40IDEgLjkgMS4zLjUuMyAxLjEuNiAxLjguNiAxIDAgMS45LS41IDIuNC0xLjJsLjEtLjEgNC4xLTUuN2MuNS45IDEgMS42IDEuNSAyLjEuNi42IDEgMS4xIDEgMS43IDAgLjUtLjUgMS0xIDEtLjQgMC0uNS0uMS0uNy0uMy0uMi0uMi0uNC0uNS0uOS0uNS0uNiAwLTEuMS41LTEuMSAxLjEgMCAuNS40IDEgLjkgMS4zLjUuMyAxLjEuNiAxLjguNiAxLjcgMCAzLjItMS40IDMuMi0zLjIgMC0xLjMtLjgtMi4zLTEuNS0zLjItLjctMS0xLjQtMS44LTEuNC0yLjVzLjctMS42LjktMS45Yy4xLS4yLjItLjQuMi0uNiAwLS42LS41LTEuMS0xLjEtMS4xLS4zIDAtLjYuMS0uOS40bC00LjkgNi44Yy0uMy0uNS0uNi0uOS0uOS0xLjMtLjctLjktMS40LTEuNy0xLjQtMi40cy43LTEuNi45LTEuOWMuMS0uMi4yLS40LjItLjYgMC0uNi0uNS0xLjEtMS4xLTEuMS0uMyAwLS42LjEtLjkuNGwtNi40IDguOC0uMS4yYy0uNy41LTEuNS45LTIuNC45LTIuMSAwLTMuNy0xLjctMy43LTMuNyAwLS42LjEtMS4xLjQtMS42LjkuNyAyLjEgMS4xIDMuNCAxLjEgMSAwIDItLjIgMi43LS43LjctLjUgMS4yLTEuMiAxLjItMiAwLS45LS41LTEuNi0xLjItMi0uOC0uNS0xLjgtLjctMi44LS43LTEuMyAwLTIuNC40LTMuNCAxLjEtLjItLjYtLjMtMS4xLS4zLTEuNyAwLTIuMSAxLjctMy43IDMuNy0zLjcuOSAwIDEuOC40IDIuNS45LjIuMi41LjMuNy4zLjYgMCAxLjEtLjUgMS4xLTEuMSAwLS4zLS4xLS42LS40LS44LTEtMS0yLjQtMS41LTMuOS0xLjUtMy4zIDAtNS45IDIuNy01LjkgNS45IDAgMS4yLjQgMi4zLjkgMy4zLS42LjktLjkgMi0uOSAzLjIgMCAzLjMgMi42IDUuOSA1LjkgNnptLTEuOS05LjJjLjYtLjMgMS4yLS41IDEuOS0uNS40IDAgLjkgMCAxLjMuMi4yIDAgLjMgMCAuNC4xLjEuMS4xLjEuMS4yczAgLjEtLjEuMmMtLjIuMi0xIC4zLTEuNy4zcy0xLjMtLjItMS45LS41eiIvPjwvZz48L3N2Zz4=">
                         <ul class="links">
                             <li>

@@ -83,34 +83,10 @@ $padS: 2em;
 	}
 }
 
-@mixin vendorize($property, $value) {
-	-webkit-#{$property}: $value;
-	-moz-#{$property}: $value;
-	-ms-#{$property}: $value;
-	-o-#{$property}: $value;
-	#{$property}: $value;
-}
-
 @mixin pseudo{
 	content: "";
 	display: block;
 	position: absolute;
-}
-
-@mixin keyframes($aniName){
-
-    @-webkit-keyframes $aniName{
-        @content;
-    }
-    @-moz-keyframes $aniName{
-        @content;
-    }
-    @-o-keyframes $aniName{
-        @content;
-    }
-    @keyframes $aniName{
-        @content;
-    }
 }
 
 @mixin svgIcon{
@@ -221,7 +197,7 @@ body{
 	bottom: 0;
 	height: 100%;
 	overflow-x: hidden;
-	position: fixed;
+	position: absolute;
 	right: 100%;
 	top: 0;
 	width: $navOffS;
@@ -616,11 +592,39 @@ header{
 
 
 
+@keyframes iphone-ani{
+	$width: (1545 - 347) / 16;
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(-$width + em); }
+}
+
+@keyframes ipad-ani{
+	$width: (1535 - 400) / 16;
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(-$width + em); }
+}
+
+@keyframes desktop-ani{
+	$width: (1527 - 285) / 16;
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(-$width + em); }
+}
 
 html{
 	background-color: #ffffff; // if #ffffff = SMALL slideshow UI
 
 	@include breakpoint(MEDIUM){ background-color: #000000; } // if #000000 = BIG slideshow UI
+}
+
+.no-js #slideShow{
+
+	.slide, .mediaShell{
+		display: none;
+	}
+
+	#dynamicBg{
+		height: 1.5em !important;
+	}
 }
 
 #slideShow{
@@ -713,10 +717,15 @@ html{
 
 			.screen{
 				$height: 347 / 16;
-				// $width: 197 / 16;
+				$width: 197 / 16;
 				bottom: (98 / 16) + em; // 6em;
-				height: $height + em !important;
+				height: $height + em;
 				right: (123 / 16) + em; // 7.6em;
+				width: $width + em;
+
+				.content{
+					animation: iphone-ani 40s infinite;
+				}
 			}
 		}
 
@@ -733,10 +742,15 @@ html{
 
 			.screen{
 				$height: 400 / 16;
-				// $width: 300 / 16;
+				$width: 300 / 16;
 				bottom: (75 / 16) + em; // 6em;
 				height: $height + em !important;
 				right: (115 / 16) + em; // 7.6em;
+				width: $width + em;
+
+				.content{
+					animation: ipad-ani 40s infinite;
+				}
 			}
 		}
 
@@ -753,10 +767,15 @@ html{
 
 			.screen{
 				$height: 285 / 16;
-				// $width: 550 / 16;
+				$width: 550 / 16;
 				bottom: (134 / 16) + em; // 6em;
 				height: $height + em !important;
 				right: (28 / 16) + em; // 7.6em;
+				width: $width + em;
+
+				.content{
+					animation: desktop-ani 40s infinite;
+				}
 			}
 		}
 
@@ -783,8 +802,15 @@ html{
 		}
 
 		.screen{
+			background-color: $grayD;
+			overflow: hidden;
 			width: auto; // $width + em !important;
 			z-index: 1;
+
+			.content{
+				height: auto;
+				width: 100%;
+			}
 		}
 	}
 
@@ -950,37 +976,55 @@ html{
 
 .strip{
 
-	&.mediaKit{
+	&[data-type="mediaKit"]{
 		$color: $stuffRed;
 		background-color: $color;
 
 		.more:hover{ color: $color; }
 	}
-	&.rateCard{
+	&[data-type="rateCard"]{
 		$color: $stuffYellow;
 		background-color: $stuffYellow;
 
 		.more:hover{ color: $color; }
 	}
-	&.techSpecs{
+	&[data-type="techSpecs"]{
 		$color: $stuffGreen;
 		background-color: $stuffGreen;
 
 		.more:hover{ color: $color; }
 	}
-	&.termsConditions{
+	&[data-type="termsConditions"]{
 		$color: $stuffBlue;
 		background-color: $stuffBlue;
 
 		.more:hover{ color: $color; }
 	}
-	&.bookingDeadlines{
+	&[data-type="bookingDeadlines"]{
 		$color: $stuffPurple;
 		background-color: $stuffPurple;
 
 		.more:hover{ color: $color; }
 	}
 }
+
+// set copy to 100% width if media query = 'small'
+html[data-mediaQuery="small"], .no-js{
+
+	.strip .description{
+		left: 0;
+		text-align: left;
+		width: 100%;
+
+		.title{
+
+			h2{ padding-left: $padB / 2; }
+			.svgIcon{ display: block; }
+		}
+	}
+}
+
+
 
 .strip{
 	color: white;
@@ -1237,7 +1281,7 @@ footer{
 			width: ($width * 0.9) + em;
 
 			@include breakpoint(MICRO){
-				margin-top: 1em; // align vertically with fairfax logo
+				margin-top: 1.15em; // align vertically with fairfax logo
 				width: ($width * 1.3) + em;
 			}
 		}
@@ -1259,16 +1303,22 @@ footer{
 
 
 
+.no-opacity{
 
+	#hamburger{ display: none; }
+	#slideShow .slide .active{ display: none; }
 
-.no-csstransforms{
+}
+
+.no-csstransforms, .no-js{
 
 	// hide side navigation...
 	#navigation{ display: none; }
 	#hamburger{ display: none; }
 	h1{
-		display: none;
 		margin-left: 0;
+
+		.advertiseOnline{ display: none; }
 	}
 }
 

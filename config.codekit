@@ -15,21 +15,12 @@
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 1226,
+		"initialSize": 1293,
 		"inputAbbreviatedPath": "\/apple-touch-icon-precomposed.png",
 		"outputAbbreviatedPath": "\/apple-touch-icon-precomposed.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
-		},
-	"\/big-slideshow.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/big-slideshow.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
 		},
 	"\/css\/main.css": {
 		"fileType": 16,
@@ -40,14 +31,38 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/ie8.php": {
-		"fileType": 8192,
+	"\/img\/animation-screen-imac.jpg": {
+		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/ie8.php",
-		"outputAbbreviatedPath": "No Output Path",
+		"initialSize": 137600,
+		"inputAbbreviatedPath": "\/img\/animation-screen-imac.jpg",
+		"outputAbbreviatedPath": "\/img\/animation-screen-imac.jpg",
 		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/img\/animation-screen-ipad.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 125376,
+		"inputAbbreviatedPath": "\/img\/animation-screen-ipad.jpg",
+		"outputAbbreviatedPath": "\/img\/animation-screen-ipad.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/img\/animation-screen-iphone.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 75150,
+		"inputAbbreviatedPath": "\/img\/animation-screen-iphone.jpg",
+		"outputAbbreviatedPath": "\/img\/animation-screen-iphone.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
 		},
 	"\/img\/imac-strip-1.png": {
 		"fileType": 32768,
@@ -100,6 +115,17 @@
 		"initialSize": 77297,
 		"inputAbbreviatedPath": "\/img\/iphone-strip-2.png",
 		"outputAbbreviatedPath": "\/img\/iphone-strip-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/img\/media-kit-proof.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 939425,
+		"inputAbbreviatedPath": "\/img\/media-kit-proof.png",
+		"outputAbbreviatedPath": "\/img\/media-kit-proof.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -808,15 +834,6 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/inde-old.php": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/inde-old.php",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
 	"\/index.php": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -870,17 +887,6 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/vendor\/min\/modernizr-custom-min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/vendor\/min\/modernizr-custom-min.js",
-		"outputAbbreviatedPath": "\/js\/vendor\/min\/min\/modernizr-custom-min-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
 	"\/js\/vendor\/modernizr-2.6.2.min.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -913,6 +919,15 @@
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
+		},
+	"\/media-kit-proof.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/media-kit-proof.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
 		},
 	"\/sass\/_ht5bp.scss": {
 		"createSourceMap": 0,
@@ -961,39 +976,6 @@
 		"shouldRunAutoprefixer": 1,
 		"shouldRunBless": 1,
 		"useLibsass": 0
-		},
-	"\/vid\/imac-poster.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 22616,
-		"inputAbbreviatedPath": "\/vid\/imac-poster.jpg",
-		"outputAbbreviatedPath": "\/vid\/imac-poster.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/vid\/ipad-poster.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 28151,
-		"inputAbbreviatedPath": "\/vid\/ipad-poster.jpg",
-		"outputAbbreviatedPath": "\/vid\/ipad-poster.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/vid\/iphone-poster.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 16989,
-		"inputAbbreviatedPath": "\/vid\/iphone-poster.jpg",
-		"outputAbbreviatedPath": "\/vid\/iphone-poster.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
 		}
 	},
 "hooks": [

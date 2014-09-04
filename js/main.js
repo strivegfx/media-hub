@@ -11,10 +11,13 @@ var $m = {
 
 		if(!Modernizr.inlinesvg){ $m.noSvg.init(); }
 		// if(!Modernizr.mq('only all')){ $html.addClass('no-mediaquery'); }
+		$m.mq();
 
 		$m.ss.init(); // slide show
 
 		$m.n.init(); // off site navigation
+
+		if($m.s.mq === 'big'){ $m.strip.init(); }
 
 		// $m.sr.init(); // scroll reveal
 
@@ -27,6 +30,7 @@ var $m = {
 		dom: {
 
 			html: $('html'),
+			sw: $('#siteWrapper'),
 			slide: $('#slideShow'),
 			ham: $('#hamburger'),
 			nav: $('#navigation')
@@ -49,6 +53,22 @@ var $m = {
 
 	}, // end of fastClick
 
+	mq: function(){
+
+		var $html = $m.s.dom.html,
+			$bg = $html.css('background-color');
+
+		if($bg === 'rgb(255, 255, 255)'){ $m.s.mq = 'small'; }
+		else{ $m.s.mq = 'big'; }
+
+		$html.attr({
+			'data-mediaQuery': 'big'
+		});
+
+		console.log($m.s.mq);
+
+	}, // end of media query
+
 	noSvg: {
 
 		init: function(){
@@ -67,36 +87,62 @@ var $m = {
 
 			$this.attr({'src': $url});
 
-			/* var $url = $this.attr('data-noSvg'),
-				$img = '<img src="' + $url + '">';
-
-			$this.empty(); // get rid of the SVG element
-			$this.html($img); */
-
 		} // end of addPng
 
 	}, // end of noSvg
+
+	strip: {
+
+		init: function(){
+
+			var $sw = $m.s.dom.sw,
+				$strip = $sw.find('> .strip');
+
+			$strip.each(function(){
+
+				$m.strip.insertImg($(this));
+
+			});
+
+		}, // end of init
+
+		insertImg: function($this){
+
+			var $ms = $this.find('> .center').find('> .mediaShell'),
+				$c = ['device', 'screen'], // image content
+				$len = $c.length,
+				$i, $img, $src;
+
+			for($i = 0; $i < $len; $i++){
+
+				$img = $ms.find('> .' + $c[$i]);
+				$src = $img.attr('data-big');
+				$img.attr({
+					'src': $src
+				});
+
+			} // end of statement
+
+		} // endof insert
+
+	}, // end of strip
 
 	ss: {
 
 		init: function(){
 
-			var $ss = $m.s.dom.slide;
+			var $ss = $m.s.dom.slide,
+				$mq = $m.s.mq;
 
-			$m.ss.uiSize();
-
-			if($m.ss.s.uiSize === 'small'){ $m.ss.small.update($ss, '+'); }
+			// insert initial slider content
+			if($mq === 'small'){ $m.ss.small.update($ss, '+'); }
 			else{ $m.ss.big.moveOut($ss, '+'); }
-			
-			
-			
-			$m.ss.l($ss);
+
+			$m.ss.l($ss); // add listeners
 
 		}, //end of init
 
 		s: {
-
-			uiSize: null, // load the current SMALL or BIG UI???
 
 			ref: 9999999, // current content reference (set to a large number to that on load it resets back to zero)
 
@@ -111,11 +157,7 @@ var $m = {
 						mediaShell: {
 							kind: 'iPhone',
 							device: 'media-shell-iphone',
-							video: {
-								mp4: 'iphone.mp4.mp4',
-								webm: 'iphone.webmhd.webm',
-								fallBack: 'xxxxxxx.png'
-							}
+							screen: 'animation-screen-iphone'
 						}
 					}
 				},
@@ -129,11 +171,7 @@ var $m = {
 						mediaShell: {
 							kind: 'iPad',
 							device: 'media-shell-ipad',
-							video: {
-								mp4: 'ipad.mp4.mp4',
-								webm: 'ipad.webmhd.webm',
-								fallBack: 'xxxxxxx.png'
-							}
+							screen: 'animation-screen-ipad'
 						}
 					}
 				},
@@ -147,11 +185,7 @@ var $m = {
 						mediaShell: {
 							kind: 'desktop',
 							device: 'media-shell-imac-front',
-							video: {
-								mp4: 'imac.mp4.mp4',
-								webm: 'imac.webmhd.webm',
-								fallBack: 'xxxxxxx.png'
-							}
+							screen: 'animation-screen-imac'
 						}
 					}
 				}
@@ -159,41 +193,20 @@ var $m = {
 
 		}, // end of settings
 
-		uiSize: function(){
-
-			var $html = $m.s.dom.html,
-				$bg = $html.css('background-color');
-
-			console.log($bg);
-
-			if($bg === 'rgb(255, 255, 255)'){ $m.ss.s.uiSize = 'small'; }
-			else{ $m.ss.s.uiSize = 'big'; }
-
-			console.log('uiSize = ' + $m.ss.s.uiSize);
-
-		}, // end of uiSize
-
 		l: function($ss){
 
 			// console.log('adding listeners');
 
-			var $this, $dir;
+			var $this, $dir, $mq;
 
 			$ss.on('click', '.slide', function(){
 
-				// console.log('slider click');
-
 				$this = $(this);
 				$dir = $m.ss.getDir($this);
+				$mq = $m.s.mq;
 
-				if($m.ss.s.uiSize === 'small'){ $m.ss.small.update($ss, $dir); }
+				if($mq === 'small'){ $m.ss.small.update($ss, $dir); }
 				else{ $m.ss.big.moveOut($ss, $dir); }
-
-				// get direction
-				// move content out
-				// update current listing
-				// update content
-				// move content in
 
 			});
 
@@ -203,128 +216,67 @@ var $m = {
 
 			moveOut: function($ss, $dir){
 
-				var $ani = $m.s.ani,
+				var $ref = $m.ss.getRef($dir),
+					$c = $m.ss.s.c[$ref].big,
+					$ani = $m.s.ani,
 					$ms = $ss.find('#mediaShell'), // media shell
 					$db = $ss.find('#dynamicBg'); // dynamic image
 
 				TweenMax.to($ms, $ani, {
 					'opacity': '0',
 					'transform': 'translateX(10em)',
-					'onComplete': $m.ss.big.update,
-					'onCompleteParams': [$dir, $ani, $ms, $db]
+					'onComplete': $m.ss.big.update.mediaShell,
+					'onCompleteParams': [$ref, $c, $ani, $ms]
 				});
 
 				TweenMax.to($db, $ani, {
 					'opacity': '0',
-					'transform': 'translateX(-10em)'
+					'transform': 'translateX(-10em)',
+					'onComplete': $m.ss.big.update.dynamicBg,
+					'onCompleteParams': [$ref, $c, $ani, $db]
 				});
 
 			}, // end of moveOut
 
-			update: function($dir, $ani, $ms, $db){
+			update: {
 
-				var $ref = $m.ss.getRef($dir),
-					$c = $m.ss.s.c[$ref].big,
-					$vid = $ms.find('> .screen'),
-					$html, $typ;
+				mediaShell: function($ref, $c, $ani, $ms){
 
-				$ms.attr({
-					'data-kind': $c.mediaShell.kind
-				});
+					// set the class for the media shell
+					$ms.attr({
+						'data-kind': $c.mediaShell.kind
+					});
 
-				$ms.find('> .device').attr({
-					'src': 'img/' + $c.mediaShell.device + '.png'
-				});
+					// set the device shell
+					$ms.find('> .device').attr({
+						'src': 'img/' + $c.mediaShell.device + '.png'
+					});
 
-				// --- --- --- ---
+					// set the image of stuff
+					$ms.find('> .screen').find('> .content').attr({
+						'src': 'img/' + $c.mediaShell.screen + '.jpg'
+					});
 
-				$vid.remove();
+					$m.ss.big.moveIn($ani, $ms); // bring element back into view
 
-				/*$html = '<video autoplay="autoplay" loop="loop" class="screen">' +
-							'<source class="mp4" src="vid/' + $c.mediaShell.video.mp4 + '" type="video/mp4">' +
-							'<source class="webm" src="vid/' + $c.mediaShell.video.webm + '" type="video/webm">' +
-							'Your browser does not support HTML5 video.' +
-						'</video>';*/
+				}, // end of mediaShell
 
-				// console.log(Modernizr.video.webm);
-				console.log(Modernizr.video.h264);
+				dynamicBg: function($dir, $c, $ani, $db){
 
-				if(Modernizr.video.h264){
+					// set the full spectrum background image
+					$db.attr({
+						'src': 'img/' + $c.bgImage + '.jpg'
+					});
 
-					$typ = $c.mediaShell.video.mp4;
+					$m.ss.big.moveIn($ani, $db); // bring element back into view
 
-				}else{
-
-					$typ = $c.mediaShell.video.webm;
-
-				} // end of statement
-
-				$html = '<video autoplay loop class="screen" src="vid/' + $typ + '" type="video/mp4" poster="vid/' + $c.mediaShell.video.fallBack + '">' +
-							'<img src="'  + $c.mediaShell.video.fallBack +  '">' +
-						'</video>';
-
-				$ms.append($html);
-
-				$ms.find('.screen').on('ended', function(){
-					this.play();
-				});
-
-				/* $vid.find('> .mp4').attr({
-					'src': 'vid/' + $c.mediaShell.video.mp4
-				});
-
-				$vid.find('> .webm').attr({
-					'src': 'vid/' + $c.mediaShell.video.webm
-				});
-
-				$vid.get(0).load();
-				$vid.get(0).play();
-
-				$vid.get(0).onended = function(e){
-					
-					console.log('video ended');
-
-					$vid.get(0).play();
-
-				}; */
-
-				// --- --- ---
-
-				/*$ms.find('> .screen').attr({
-					'src': 'img/' + $c.mediaShell.video + '.gif'
-				});*/
-
-				// $vid.find('.mp4').attr({'src': 'vid/' + $c.mediaShell.video.mp4});
-				// $vid.find('.webm').attr({'src': 'vid/' + $c.mediaShell.video.webm});
-
-				// $vid.play();
-
-				// <source class="mp4" src="" type="video/mp4">
-				// <source class="webm" src="" type="video/webm">
-
-				// $vid.empty();
-				// $vid.append('<source class="mp4" src="vid/' + $c.mediaShell.video.mp4 + '" type="video/mp4">');
-				// $vid.append('<source class="webm" src="vid/' + $c.mediaShell.video.webm + '" type="video/webm">');
-
-				// $vid.load();
-				// $vid.play();
-
-				$db.attr({
-					'src': 'img/' + $c.bgImage + '.jpg'
-				});
-
-				$m.ss.big.moveIn($ani, $ms, $db);
+				} // end of dynamicImage
 
 			}, // end of update
 
-			moveIn: function($ani, $ms, $db){
+			moveIn: function($ani, $this){
 
-				TweenMax.to($ms, $ani, {
-					'opacity': '1',
-					'transform': 'translateX(0)'
-				});
-
-				TweenMax.to($db, $ani, {
+				TweenMax.to($this, $ani, {
 					'opacity': '1',
 					'transform': 'translateX(0)'
 				});
